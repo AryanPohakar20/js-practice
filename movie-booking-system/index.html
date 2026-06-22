@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineReserve — Premium Movie Ticket Booking</title>
+  <meta name="description" content="Book tickets for the latest blockbusters with our premium interactive seating map and dynamic checkout system.">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i data-lucide="clapperboard" class="logo-icon"></i>
+        <span>Cine<span class="highlight">Reserve</span></span>
+      </div>
+      <nav>
+        <button id="view-bookings-btn" class="nav-btn">
+          <i data-lucide="ticket"></i>
+          <span>My Tickets</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Grid Layout -->
+  <main class="main-content">
+    
+    <!-- Hero / Now Showing Section -->
+    <section class="section movies-section" id="movies">
+      <div class="section-header">
+        <h1 class="section-title">Now Showing</h1>
+        <p class="section-subtitle">Select a movie to begin your cinema experience</p>
+      </div>
+      
+      <!-- Movie Cards Grid -->
+      <div class="movie-grid" id="movie-grid">
+        <!-- Dynamically populated via app.js -->
+      </div>
+    </section>
+
+    <!-- Interactive Seating Section -->
+    <section class="section booking-section hidden" id="booking-section">
+      <div class="section-header">
+        <h2 class="section-title">Choose Your Seats</h2>
+        <p class="section-subtitle" id="selected-movie-title-display">Please select a movie above</p>
+      </div>
+
+      <div class="booking-container">
+        <!-- Interactive Cinema Layout -->
+        <div class="cinema-panel">
+          <!-- Movie Screen Glow -->
+          <div class="screen-container">
+            <div class="screen"></div>
+            <div class="screen-glow"></div>
+            <p class="screen-label">SCREEN</p>
+          </div>
+
+          <!-- Seat Matrix -->
+          <div class="seating-grid-container">
+            <div class="seating-grid" id="seating-grid">
+              <!-- Dynamically populated via app.js -->
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="legend">
+            <div class="legend-item">
+              <div class="seat-legend available"></div>
+              <span>Available</span>
+            </div>
+            <div class="legend-item">
+              <div class="seat-legend selected"></div>
+              <span>Selected</span>
+            </div>
+            <div class="legend-item">
+              <div class="seat-legend occupied"></div>
+              <span>Occupied</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checkout and Options Panel -->
+        <div class="checkout-panel">
+          <h3 class="panel-title">Booking details</h3>
+          
+          <div class="form-group">
+            <label for="show-date">Select Date</label>
+            <div class="select-wrapper">
+              <i data-lucide="calendar" class="select-icon"></i>
+              <select id="show-date" class="form-select">
+                <!-- Dynamically populated via app.js -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="show-time">Select Showtime</label>
+            <div class="select-wrapper">
+              <i data-lucide="clock" class="select-icon"></i>
+              <select id="show-time" class="form-select">
+                <!-- Dynamically populated via app.js -->
+              </select>
+            </div>
+          </div>
+
+          <div class="price-summary">
+            <div class="summary-row">
+              <span>Ticket price (per seat)</span>
+              <span class="value" id="ticket-base-price">₹0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Selected Seats</span>
+              <span class="value" id="selected-seats-badge">None</span>
+            </div>
+            <hr class="summary-divider">
+            <div class="summary-row total-row">
+              <span>Total Price</span>
+              <span class="value total-price" id="total-price-display">₹0.00</span>
+            </div>
+          </div>
+
+          <button id="book-ticket-btn" class="checkout-btn" disabled>
+            <i data-lucide="credit-card"></i>
+            <span>Confirm Booking</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- My Bookings / Tickets Modal -->
+  <div class="modal-backdrop hidden" id="bookings-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <i data-lucide="ticket" class="modal-icon"></i>
+          <span>My Reserved Tickets</span>
+        </h3>
+        <button id="close-modal-btn" class="close-btn">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="bookings-list">
+        <!-- Dynamically populated via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Success Receipt Modal -->
+  <div class="modal-backdrop hidden" id="receipt-modal">
+    <div class="receipt-card">
+      <div class="receipt-header-glow"></div>
+      <div class="receipt-success-badge">
+        <i data-lucide="check"></i>
+      </div>
+      <h3 class="receipt-title">Booking Confirmed!</h3>
+      <p class="receipt-subtitle">Your cinematic adventure is locked in.</p>
+      
+      <div class="ticket-stub" id="ticket-receipt-stub">
+        <!-- Dynamically populated via app.js -->
+      </div>
+
+      <button id="close-receipt-btn" class="receipt-close-btn">Done</button>
+    </div>
+  </div>
+
+  <!-- Async Loader Overlay -->
+  <div class="loader-overlay hidden" id="loader-overlay">
+    <div class="loader-content">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+      <p class="loader-text">Securing your seats...</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 CineReserve. Developed for vanilla JS practice. Designed to impress.</p>
+  </footer>
+
+  <!-- App JavaScript logic -->
+  <script src="app.js"></script>
+</body>
+</html>
