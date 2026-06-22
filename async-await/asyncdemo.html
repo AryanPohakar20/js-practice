@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Food Delivery System - Async/Await</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      #output {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+
+      .message {
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🍔 Food Delivery System</h1>
+
+    <button onclick="placeOrder()">Place Order</button>
+
+    <div id="output"></div>
+
+    <script>
+      const output = document.getElementById("output");
+
+      function addMessage(text) {
+        output.innerHTML += `<div class="message">${text}</div>`;
+      }
+
+      function prepareFood() {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            addMessage("👨‍🍳 Food Prepared");
+            resolve();
+          }, 3000);
+        });
+      }
+
+      async function placeOrder() {
+        output.innerHTML = "";
+
+        addMessage("🍔 Order Placed");
+
+        await prepareFood();
+
+        addMessage("🚚 Food Delivered");
+      }
+    </script>
+  </body>
+</html>

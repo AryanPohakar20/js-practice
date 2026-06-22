@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Food Delivery - Order Rejected</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      #output {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+
+      .message {
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🍔 Food Delivery System</h1>
+
+    <button onclick="placeOrder()">Place Order</button>
+
+    <div id="output"></div>
+
+    <script>
+      const output = document.getElementById("output");
+
+      function addMessage(text) {
+        output.innerHTML += `<div class="message">${text}</div>`;
+      }
+
+      function prepareFood() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject("❌ Order Rejected: Restaurant is closed.");
+          }, 3000);
+        });
+      }
+
+      async function placeOrder() {
+        output.innerHTML = "";
+
+        addMessage("🍔 Order Placed");
+
+        try {
+          await prepareFood();
+
+          addMessage("👨‍🍳 Food Prepared");
+          addMessage("🚚 Food Delivered");
+        } catch (error) {
+          addMessage(error);
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Example</title>
+</head>
+<body>
+
+    <h2>Promise Example - Question Answer</h2>
+    <button onclick="askQuestion()">Start Quiz</button>
+
+    <p id="result"></p>
+
+    <script>
+        function askQuestion() {
+            let answer = prompt("2+2?");
+
+            const questionPromise = new Promise((resolve, reject) => {
+                if (
+                    answer &&
+                    (answer == 4)
+                ) {
+                    resolve("✅ Correct Answer!");
+                } else {
+                    reject("❌ Wrong Answer!");
+                }
+            });
+
+            questionPromise
+                .then((message) => {
+                    document.getElementById("result").innerHTML = message;
+                })
+                .catch((error) => {
+                    document.getElementById("result").innerHTML = error;
+                });
+        }
+    </script>
+
+</body>
+</html>

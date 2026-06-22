@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Food Delivery System</title>
+  </head>
+  <body>
+    <h2>Food Delivery System</h2>
+    <button onclick="placeOrder()">Place Order</button>
+
+    <p id="output"></p>
+
+    <script>
+      const output = document.getElementById("output");
+      function placeOrder() {
+        console.log("Order Placed");
+        output.textContent = "Order Placed";
+        // Step 2: Order accepted
+        orderAccepted(function () {
+          // Step 3: Prepare food
+          prepareFood(function () {
+            // Step 4: Pickup food
+            pickupFood(function () {
+              // Step 5: Deliver food (called after 3s in pickup)
+              deliverFood();
+            });
+          });
+        });
+      }
+
+      function orderAccepted(callback) {
+        console.log("Order Accepted");
+        output.textContent = "Order Accepted";
+        callback();
+      }
+
+      function prepareFood(callback) {
+        console.log("Food Prepared");
+        output.textContent = "Food Prepared";
+        callback();
+      }
+
+      function pickupFood(callback) {
+        console.log("Food Picked Up (starting delivery)");
+        output.textContent = "Food Picked Up";
+        // Wait 3 seconds after pickup, then continue to delivery via callback
+        setTimeout(function () {
+          console.log("On the way to deliver...");
+          callback();
+        }, 3000);
+      }
+
+      function deliverFood() {
+        console.log("Food Delivered");
+        output.textContent = "Food Delivered";
+      }
+    </script>
+  </body>
+</html>

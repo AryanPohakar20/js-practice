@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Student Management System</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      button {
+        padding: 10px 15px;
+        margin: 5px;
+        cursor: pointer;
+      }
+
+      #output {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid black;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Student Management System</h1>
+
+    <button onclick="displayStudents()">Display Students (Map)</button>
+    <button onclick="findStudent()">Find Student ID 2 (Find)</button>
+    <button onclick="showToppers()">Show Toppers (Filter)</button>
+
+    <div id="output">Output will appear here...</div>
+
+    <script>
+      const students = [
+        { id: 1, name: "Aryan", marks: 85 },
+        { id: 2, name: "Rohit", marks: 70 },
+        { id: 3, name: "Priya", marks: 92 },
+        { id: 4, name: "Neha", marks: 65 },
+        { id: 5, name: "Amit", marks: 88 },
+      ];
+
+      // MAP METHOD
+      function displayStudents() {
+        let result = students.map(
+          (student) =>
+            `ID: ${student.id}, Name: ${student.name}, Marks: ${student.marks}`,
+        );
+
+        document.getElementById("output").innerHTML =
+          "<h3>All Students</h3>" + result.join("<br>");
+      }
+
+      // FIND METHOD
+      function findStudent() {
+        let student = students.find((s) => s.id === 2);
+
+        document.getElementById("output").innerHTML = `<h3>Student Found</h3>
+                 ID: ${student.id}<br>
+                 Name: ${student.name}<br>
+                 Marks: ${student.marks}`;
+      }
+
+      // FILTER METHOD
+      function showToppers() {
+        let toppers = students.filter((s) => s.marks > 80);
+
+        let result = toppers.map(
+          (student) =>
+            `ID: ${student.id}, Name: ${student.name}, Marks: ${student.marks}`,
+        );
+
+        document.getElementById("output").innerHTML =
+          "<h3>Students with Marks > 80</h3>" + result.join("<br>");
+      }
+    </script>
+  </body>
+</html>

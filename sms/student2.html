@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Student Management System</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+
+      button {
+        padding: 10px;
+        margin: 5px;
+        cursor: pointer;
+      }
+
+      #output {
+        width: 70%;
+        margin: 20px auto;
+        border: 1px solid rgb(0, 0, 0);
+        padding: 15px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Student Management System</h1>
+
+    <button onclick="showStudents()">map()</button>
+    <button onclick="findStudent()">find()</button>
+    <button onclick="filterStudents()">filter()</button>
+    <button onclick="totalMarks()">reduce()</button>
+    <button onclick="listStudents()">forEach()</button>
+    <button onclick="checkTopper()">some()</button>
+    <button onclick="checkPass()">every()</button>
+
+    <div id="output">Output will appear here...</div>
+
+    <script>
+      const students = [
+        { id: 1, name: "Aryan", marks: 85 },
+        { id: 2, name: "Rohit", marks: 70 },
+        { id: 3, name: "Priya", marks: 95 },
+        { id: 4, name: "Neha", marks: 25 },
+        { id: 5, name: "Amit", marks: 88 },
+      ];
+
+      // MAP
+      function showStudents() {
+        let result = students.map(
+          (student) =>
+            `ID: ${student.id}, Name: ${student.name}, Marks: ${student.marks}`,
+        );
+
+        document.getElementById("output").innerHTML =
+          "<h3>All Students (map)</h3>" + result.join("<br>");
+      }
+
+      // FIND
+      // FIND METHOD USING PROMPT
+      function findStudent() {
+        let searchId = Number(prompt("Enter Student ID to Search:"));
+
+        let student = students.find((s) => s.id === searchId);
+
+        if (student) {
+          document.getElementById("output").innerHTML = `<h3>Student Found</h3>
+        ID: ${student.id}<br>
+        Name: ${student.name}<br>
+        Marks: ${student.marks}`;
+        } else {
+          document.getElementById("output").innerHTML =
+            `<h3>Student Not Found</h3>
+        No student exists with ID ${searchId}`;
+        }
+      }
+
+      // FILTER
+      function filterStudents() {
+        let toppers = students.filter((student) => student.marks > 80);
+
+        let result = toppers.map(
+          (student) => `${student.name} - ${student.marks}`,
+        );
+
+        document.getElementById("output").innerHTML =
+          "<h3>Toppers (filter)</h3>" + result.join("<br>");
+      }
+
+      // REDUCE
+      function totalMarks() {
+        let total = students.reduce((sum, student) => sum + student.marks, 0);
+
+        document.getElementById("output").innerHTML =
+          `<h3>Total Marks (reduce)</h3>
+        Total Marks = ${total}`;
+      }
+
+      // FOREACH
+      function listStudents() {
+        let result = "";
+
+        students.forEach((student) => {
+          result += `${student.name} scored ${student.marks}<br>`;
+        });
+
+        document.getElementById("output").innerHTML =
+          "<h3>Student List (forEach)</h3>" + result;
+      }
+
+      // SOME
+      function checkTopper() {
+        let hasTopper = students.some((student) => student.marks > 90);
+
+        document.getElementById("output").innerHTML =
+          `<h3>Topper Check (some)</h3>
+        Any student scored above 90? ${hasTopper}`;
+      }
+
+      // EVERY
+      function checkPass() {
+        let allPass = students.every((student) => student.marks >= 35);
+
+        document.getElementById("output").innerHTML =
+          `<h3>Pass Check (every)</h3>
+        All students passed? ${allPass}`;
+      }
+    </script>
+  </body>
+</html>
